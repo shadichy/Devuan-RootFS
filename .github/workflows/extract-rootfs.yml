@@ -36,7 +36,7 @@ jobs:
           docker create --name devuan devuan echo "Devuan"
           # Export it to install
           mkdir install
-          docker export devuan | tar -C install -p -s --same-owner -xv
+          docker export devuan | tar -C install -p -s -xv
           # Create install.sfs
           mksquashfs install install.sfs -noappend -comp zstd
           # Create initrd_lib.tar.gz
