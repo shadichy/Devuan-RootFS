@@ -34,12 +34,9 @@ jobs:
         run: |
           # Create Docker image
           docker create --name devuan devuan echo "Devuan"
-          # Export it to tar
-          docker export -o rootfs.tar devuan
-          # Create install directory and extract the tar
+          # Export it to install
           mkdir install
-          tar -xvf rootfs.tar -C install
-          rm rootfs.tar
+          docker export devuan | tar -C install -p -s --same-owner -xv
           # Create install.sfs
           mksquashfs install install.sfs -noappend -comp zstd
           # Create initrd_lib.tar.gz
