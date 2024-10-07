@@ -1,7 +1,7 @@
-FROM fedora:40
+FROM devuan/devuan:excalibur
 
 COPY . /
 
-RUN dnf update -y
+RUN apt update && apt upgrade -y
 
-RUN dnf install ncurses util-linux util-linux-user passwd nano vim git wget @core sqlite pinentry cracklib-dicts -y
+RUN apt install htop fastfetch utillinux busybox -y
