@@ -38,7 +38,7 @@ jobs:
           docker export -o rootfs.tar devuan
           # Create install directory and extract the tar
           mkdir install
-          tar -xvf rootfs.tar install
+          tar -xvf rootfs.tar -C install
           rm rootfs.tar
           # Create install.sfs
           sudo apt install squashfs-tools -y
