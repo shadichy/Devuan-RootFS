@@ -41,21 +41,20 @@ jobs:
           tar -xvf rootfs.tar -C install
           rm rootfs.tar
           # Create install.sfs
-          sudo apt install squashfs-tools -y
           mksquashfs install install.sfs -noappend -comp zstd
           # Create initrd_lib.tar.gz
           mkdir -p initrd_lib/bin initrd_lib/lib initrd_lib/sbin
-          cp install/bin/busybox initrd_lib/bin/busybox
-          cp install/sbin/mount.ntfs-3g initrd_lib/sbin/mount.ntfs-3g
-          cp install/lib/libc.so.* initrd_lib/lib
-          cp install/lib/libdl.so.* initrd_lib/lib
-          cp install/lib/libm.so.* initrd_lib/lib
-          cp install/lib/libpthread.so.* initrd_lib/lib
-          cp install/lib/libresolv.so.* initrd_lib/lib
-          cp install/lib/librt.so.* initrd_lib/lib
-          cp install/lib/libntfs-3g.so.* initrd_lib/lib
-          cp install/lib/ld-linux-x86-64.so.* initrd_lib/lib
-          cp install/bin/ld.so initrd_lib/bin
+          cp install/usr/bin/busybox initrd_lib/bin/busybox
+          cp install/usr/sbin/mount.ntfs-3g initrd_lib/sbin/mount.ntfs-3g
+          cp install/usr/lib/libc.so.* initrd_lib/lib
+          cp install/usr/lib/libdl.so.* initrd_lib/lib
+          cp install/usr/lib/libm.so.* initrd_lib/lib
+          cp install/usr/lib/libpthread.so.* initrd_lib/lib
+          cp install/usr/lib/libresolv.so.* initrd_lib/lib
+          cp install/usr/lib/librt.so.* initrd_lib/lib
+          cp install/usr/lib/libntfs-3g.so.* initrd_lib/lib
+          cp install/usr/lib/ld-linux-x86-64.so.* initrd_lib/lib
+          cp install/usr/bin/ld.so initrd_lib/bin
           ## Get Docker busybox too
           wget "https://github.com/docker-library/busybox/raw/refs/heads/dist-amd64/latest/glibc/amd64/rootfs.tar.gz" -O rootfs_busybox.tar.gz
           mkdir docker_busybox && tar -xzf rootfs_busybox.tar.gz -C docker_busybox
