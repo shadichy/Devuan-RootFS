@@ -1,4 +1,4 @@
-name: Extract RootFS from Docker Image
+name: Generate install.sfs & initrd_lib.tar.gz from Docker Image
 
 on:
   push:
@@ -30,11 +30,40 @@ jobs:
         run: |
           docker build -f Dockerfile . -t devuan
 
-      - name: Extract RootFS
+      - name: Extract RootFS & generate install.sfs & initrd_lib.tar.gz
         run: |
+          # Create Docker image
           docker create --name devuan devuan echo "Devuan"
-          docker export -o rootfs.$(dpkg --print-architecture).tar devuan
-          gzip rootfs.$(dpkg --print-architecture).tar
+          # Export it to tar
+          docker export -o rootfs.tar devuan
+          # Create install directory and extract the tar
+          mkdir install
+          tar -xvf rootfs.tar install
+          rm rootfs.tar
+          # Create install.sfs
+          sudo apt install squashfs-tools -y
+          mksquashfs install install.sfs -noappend -comp zstd
+          # Create initrd_lib.tar.gz
+          mkdir -p initrd_lib/bin initrd_lib/lib initrd_lib/sbin
+          cp install/bin/busybox initrd_lib/bin/busybox
+          cp install/sbin/mount.ntfs-3g initrd_lib/sbin/mount.ntfs-3g
+          cp install/lib/libc.so.* initrd_lib/lib
+          cp install/lib/libdl.so.* initrd_lib/lib
+          cp install/lib/libm.so.* initrd_lib/lib
+          cp install/lib/libpthread.so.* initrd_lib/lib
+          cp install/lib/libresolv.so.* initrd_lib/lib
+          cp install/lib/librt.so.* initrd_lib/lib
+          cp install/lib/libntfs-3g.so.* initrd_lib/lib
+          cp install/lib/ld-linux-x86-64.so.* initrd_lib/lib
+          cp install/bin/ld.so initrd_lib/bin
+          ## Get Docker busybox too
+          wget "https://github.com/docker-library/busybox/raw/refs/heads/dist-amd64/latest/glibc/amd64/rootfs.tar.gz" -O rootfs_busybox.tar.gz
+          mkdir docker_busybox && tar -xzf rootfs_busybox.tar.gz -C docker_busybox
+          cp docker_busybox/bin/busybox initrd_lib/bin/busybox.docker
+          ## Wrap initrd_lib up
+          tar -czvf initrd_lib.tar.gz initrd_lib
+          ## Clean up
+          rm -rf docker_busybox rootfs_busybox.tar.gz install initrd_lib
           docker rm devuan
 
       - name: Set Vars
@@ -42,11 +71,17 @@ jobs:
         run: |
           echo "arch=$(dpkg --print-architecture)" >> "$GITHUB_OUTPUT"
 
-      - name: Upload RootFS
+      - name: Upload install.sfs
         uses: actions/upload-artifact@v4
         with:
-          name: rootfs.${{ steps.vars.outputs.arch }}
-          path: rootfs.*.tar.gz
+          name: install.sfs
+          path: install.sfs
+
+      - name: Upload initrd_lib.tar.gz
+        uses: actions/upload-artifact@v4
+        with:
+          name: initrd_lib.tar.gz
+          path: initrd_lib.tar.gz
 
   release:
     name: Release
@@ -58,8 +93,8 @@ jobs:
         id: download-rootfs
         uses: actions/download-artifact@v4
         with:
-          path: rootfs
-          pattern: rootfs.*
+          path: out
+          pattern: 'install.sfs,initrd_lib.tar.gz'
           merge-multiple: true
 
       - name: List Files
