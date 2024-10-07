@@ -46,14 +46,14 @@ jobs:
           mkdir -p initrd_lib/bin initrd_lib/lib initrd_lib/sbin
           cp install/usr/bin/busybox initrd_lib/bin/busybox
           cp install/usr/sbin/mount.ntfs-3g initrd_lib/sbin/mount.ntfs-3g
-          cp install/usr/lib/libc.so.* initrd_lib/lib
-          cp install/usr/lib/libdl.so.* initrd_lib/lib
-          cp install/usr/lib/libm.so.* initrd_lib/lib
-          cp install/usr/lib/libpthread.so.* initrd_lib/lib
-          cp install/usr/lib/libresolv.so.* initrd_lib/lib
-          cp install/usr/lib/librt.so.* initrd_lib/lib
-          cp install/usr/lib/libntfs-3g.so.* initrd_lib/lib
-          cp install/usr/lib/ld-linux-x86-64.so.* initrd_lib/lib
+          cp install/usr/lib/*/libc.so.* initrd_lib/lib
+          cp install/usr/lib/*/libdl.so.* initrd_lib/lib
+          cp install/usr/lib/*/libm.so.* initrd_lib/lib
+          cp install/usr/lib/*/libpthread.so.* initrd_lib/lib
+          cp install/usr/lib/*/libresolv.so.* initrd_lib/lib
+          cp install/usr/lib/*/librt.so.* initrd_lib/lib
+          cp install/usr/lib/*/libntfs-3g.so.* initrd_lib/lib
+          cp install/usr/lib/*/ld-linux-x86-64.so.* initrd_lib/lib
           cp install/usr/bin/ld.so initrd_lib/bin
           ## Get Docker busybox too
           wget "https://github.com/docker-library/busybox/raw/refs/heads/dist-amd64/latest/glibc/amd64/rootfs.tar.gz" -O rootfs_busybox.tar.gz
