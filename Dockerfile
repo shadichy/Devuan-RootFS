@@ -22,6 +22,9 @@ RUN apt install jwm doublecmd-qt xterm mousepad -y
 # Include for both Legacy BIOS & UEFI (IA32/amd64)
 RUN apt install grub-common grub2-common grub-pc-bin grub-efi-ia32-bin grub-efi-amd64-bin -y
 
+# As an extra, install gxmessage and consolekit for shutdown
+RUN apt install gxmessage consolekit -y
+
 # Gparted
 RUN apt install gparted -y
 
@@ -30,3 +33,6 @@ RUN apt install calamares calamares-extensions calamares-extensions-data -y
 
 # ntfs-3g so we can pull this out for initrd
 RUN apt install ntfs-3g -y
+
+# Generate a grub-rescue iso so we can use it as the base for the iso
+RUN grub-mkrescue -o /grub-rescue.iso

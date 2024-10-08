@@ -37,6 +37,10 @@ jobs:
           # Export it to install
           mkdir install
           docker export devuan | tar -C install -p -s -xv
+          # Move grub-rescue.iso out
+          mv install/grub-rescue.iso .
+          # Remove .dockerenv
+          rm -rf install/.dockerenv
           # Create install.sfs
           mksquashfs install install.sfs -noappend -comp zstd
           # Create initrd_lib.tar.gz
