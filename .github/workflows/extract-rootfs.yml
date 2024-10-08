@@ -83,6 +83,12 @@ jobs:
           name: initrd_lib.tar.gz
           path: initrd_lib.tar.gz
 
+      - name: Upload grub-rescue.iso
+        uses: actions/upload-artifact@v4
+        with:
+          name: grub-rescue.iso
+          path: grub-rescue.iso
+
   release:
     name: Release
     needs: build
@@ -94,7 +100,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           path: out
-          pattern: 'install.sfs,initrd_lib.tar.gz'
+          pattern: 'install.sfs,initrd_lib.tar.gz,grub-rescue.iso'
           merge-multiple: true
 
       - name: List Files
