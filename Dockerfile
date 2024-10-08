@@ -8,10 +8,10 @@ RUN apt update && apt upgrade -y
 RUN apt install htop fastfetch nano -y
 
 # Some essential tools
-RUN apt install util-linux busybox e2fsprogs efibootmgr -y
+RUN apt install util-linux busybox e2fsprogs exfatprogs dosfstools f2fs-tools btrfs-progs efibootmgr -y
 
 # X11
-RUN apt install xserver-xorg-video-all xserver-xorg-core xserver-xorg-input-all xinit -y
+RUN apt install xserver-xorg-video-all xserver-xorg-core xserver-xorg-input-all xserver-xorg-video-intel xserver-xorg-input-wacom xinit -y
 
 # Supposedly we want to install a DE, but Xfce seems to tax us a lot of resources
 # So we decided to use JWM, with some extra tools
