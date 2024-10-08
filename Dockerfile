@@ -34,11 +34,11 @@ RUN apt install calamares calamares-extensions calamares-extensions-data -y
 # ntfs-3g so we can pull this out for initrd
 RUN apt install ntfs-3g -y
 
-# Install xorriso just to generate grub-rescue
-RUN apt install xorriso -y
+# Install programs to generate grub-rescue.iso
+RUN apt install xorriso mtools -y
 
 # Generate a grub-rescue iso so we can use it as the base for the iso
 RUN grub-mkrescue -o /grub-rescue.iso
 
 # Remove xorriso once done
-RUN apt remove xorriso -y
+RUN apt remove xorriso mtools -y
