@@ -42,3 +42,7 @@ RUN grub-mkrescue -o /grub-rescue.iso
 
 # Remove xorriso once done
 RUN apt remove xorriso mtools -y
+
+# Try to strip down the image further
+RUN dpkg --remove --force-depends alsa-ucm-conf fonts-dejavu-core fonts-dejavu-mono
+RUN rm -rf /usr/include/*
