@@ -43,6 +43,8 @@ jobs:
           rm -rf install/.dockerenv
           # Create install.sfs
           mksquashfs install install.sfs -noappend -comp zstd
+          # Copy boot_hybrid.img for Legacy BIOS
+          cp install/usr/lib/grub/i386-pc/boot_hybrid.img .
           # Create initrd_lib.tar.gz
           mkdir -p initrd_lib/bin initrd_lib/lib initrd_lib/sbin
           cp install/usr/bin/busybox initrd_lib/bin/busybox
@@ -89,6 +91,12 @@ jobs:
           name: grub-rescue.iso
           path: grub-rescue.iso
 
+      - name: Upload boot_hybrid.img
+        uses: actions/upload-artifact@v4
+        with:
+          name: boot_hybrid.img
+          path: boot_hybrid.img
+
   release:
     name: Release
     needs: build
@@ -100,7 +108,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           path: out
-          pattern: 'install.sfs,initrd_lib.tar.gz,grub-rescue.iso'
+          pattern: 'install.sfs,initrd_lib.tar.gz,grub-rescue.iso,boot_hybrid.img'
           merge-multiple: true
 
       - name: List Files
