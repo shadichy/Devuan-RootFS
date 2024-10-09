@@ -1,4 +1,4 @@
-FROM devuan/devuan:excalibur
+FROM devuan/migrated:excalibur-slim
 
 COPY . /
 
