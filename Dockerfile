@@ -38,7 +38,7 @@ RUN apt install ntfs-3g -y
 RUN apt install xorriso mtools -y
 
 # Generate a grub-rescue iso so we can use it as the base for the iso
-RUN grub-mkrescue --verbose -o /grub-rescue.iso > /grubrescue-gen.txt 2>&1
+RUN grub-mkrescue -o /grub-rescue.iso
 
 # Remove xorriso once done
 RUN apt remove xorriso mtools -y
