@@ -1,11 +1,11 @@
 FROM devuan/migrated:excalibur-slim
 
-COPY . /
+COPY ./template /
 
 RUN apt update && apt upgrade -y
 
 # Let's start with the CLI tool I would like to have :)
-RUN apt install htop fastfetch nano -y
+RUN apt install htop fastfetch -y
 
 # Some essential tools
 RUN apt install util-linux busybox e2fsprogs exfatprogs dosfstools f2fs-tools btrfs-progs efibootmgr -y
@@ -16,7 +16,7 @@ RUN apt install xserver-xorg-video-all xserver-xorg-core xserver-xorg-input-all 
 # Supposedly we want to install a DE, but Xfce seems to tax us a lot of resources
 # So we decided to use JWM, with some extra tools
 # a file manager (doublecmd-qt), a terminal (xterm) and a text editor (mousepad)
-RUN apt install jwm doublecmd-qt xterm mousepad -y
+RUN apt install jwm xterm mc -y
 
 # Grub2
 # Include for both Legacy BIOS & UEFI (IA32/amd64)
@@ -35,13 +35,13 @@ RUN apt install calamares calamares-extensions calamares-extensions-data -y
 RUN apt install ntfs-3g -y
 
 # Install programs to generate grub-rescue.iso
-RUN apt install xorriso mtools -y
+# RUN apt install xorriso mtools -y
 
 # Generate a grub-rescue iso so we can use it as the base for the iso
-RUN grub-mkrescue -o /grub-rescue.iso
+# RUN grub-mkrescue -o /grub-rescue.iso
 
 # Remove xorriso once done
-RUN apt remove xorriso mtools -y
+# RUN apt remove xorriso mtools -y
 
 # Try to strip down the image further
 RUN dpkg --remove --force-depends libasound2-data fonts-dejavu-core fonts-dejavu-mono

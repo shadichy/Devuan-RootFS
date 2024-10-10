@@ -1,0 +1,5 @@
+# Let's start with the CLI tool I would like to have :)
+htop
+fastfetch
+
+
