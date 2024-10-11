@@ -44,5 +44,5 @@ RUN grub-mkrescue -o /grub-rescue.iso
 RUN apt remove xorriso mtools -y
 
 # Try to strip down the image further
-RUN dpkg --remove --force-depends libasound2-data fonts-dejavu-core fonts-dejavu-mono
+RUN dpkg --remove --force-depends libasound2-data fonts-dejavu-core fonts-dejavu-mono extra-cmake-modules
 RUN rm -rf /usr/include/*
