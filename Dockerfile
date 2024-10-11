@@ -15,8 +15,8 @@ RUN apt install xserver-xorg-video-all xserver-xorg-core xserver-xorg-input-all 
 
 # Supposedly we want to install a DE, but Xfce seems to tax us a lot of resources
 # So we decided to use JWM, with some extra tools
-# a file manager (doublecmd-qt), a terminal (xterm) and a text editor (mousepad)
-RUN apt install jwm doublecmd-qt xterm mousepad -y
+# a file manager (doublecmd-qt), a terminal (xterm) and a text editor (l3afpad)
+RUN apt install jwm doublecmd-qt xterm l3afpad -y
 
 # Grub2
 # Include for both Legacy BIOS & UEFI (IA32/amd64)
