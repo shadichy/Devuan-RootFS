@@ -47,3 +47,5 @@ RUN apt remove xorriso mtools -y
 RUN dpkg --remove --force-depends libasound2-data fonts-dejavu-core fonts-dejavu-mono extra-cmake-modules
 RUN rm -rf /usr/include/*
 RUN rm -rf /usr/lib/x86_64-linux-gnu/cmake
+
+RUN apt list --installed
