@@ -51,6 +51,5 @@ RUN dpkg --remove --force-depends --force-remove-essential libasound2-data extra
 RUN rm -rf /usr/include/*
 RUN rm -rf /usr/lib/x86_64-linux-gnu/cmake
 
-RUN mv /tmp/setup.sh /
 RUN ./setup.sh
 RUN rm /setup.sh
