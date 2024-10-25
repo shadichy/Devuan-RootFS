@@ -44,6 +44,6 @@ RUN grub-mkrescue -o /grub-rescue.iso
 RUN apt remove xorriso mtools -y
 
 # Try to strip down the image further
-RUN dpkg --remove --force-depends libasound2-data fonts-dejavu-core fonts-dejavu-mono extra-cmake-modules
+RUN dpkg --remove --force-depends libasound2-data extra-cmake-modules libx11proto-dev debconf debianutils kinit-dev kirigami2-dev libegl-dev libgl-dev libglu1-mesa-dev libglx-dev libkf5archive-dev libkf5auth-dev libkf5auth-dev-bin libkf5bookmarks-dev libkf5codecs-dev libkf5completion-dev libkf5config-dev libkf5config-dev-bin libkf5configwidgets-dev libkf5coreaddons-dev libkf5coreaddons-dev-bin libkf5crash-dev libkf5dbusaddons-dev libkf5declarative-dev libkf5doctools-dev libkf5emoticons-dev libkf5globalaccel-dev libkf5guiaddons-dev libkf5i18n-dev libkf5iconthemes-dev libkf5itemmodels-dev libkf5itemviews-dev libkf5jobwidgets-dev libkf5kdelibs4support-dev libkf5kio-dev libkf5notifications-dev libkf5package-dev libkf5parts-dev libkf5service-dev libkf5solid-dev libkf5sonnet-dev libkf5sonnet-dev-bin libkf5textwidgets-dev libkf5unitconversion-dev libkf5widgetsaddons-dev libkf5windowsystem-dev libkf5xmlgui-dev libopengl-dev libqt5svg5-dev libqt5x11extras5-dev libssl-dev libvulkan-dev libx11-dev libxau-dev libxcb1-dev libxdmcp-dev libxext-dev libyaml-cpp-dev qt5-qmake qt5-qmake-bin qtbase5-dev qtbase5-dev-tools qtdeclarative5-dev qtdeclarative5-dev-tools qtscript5-dev qttools5-dev qttools5-dev-tools xtrans-dev
 RUN rm -rf /usr/include/*
 RUN rm -rf /usr/lib/x86_64-linux-gnu/cmake
