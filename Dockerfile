@@ -7,11 +7,14 @@ RUN apt update && apt upgrade -y
 # Let's start with the CLI tool I would like to have :)
 RUN apt install htop fastfetch nano -y
 
+# Core SysVinit
+RUN apt install sysvinit-core orphan-sysvinit-scripts procps acpid -y
+
 # Some essential tools
-RUN apt install util-linux busybox e2fsprogs exfatprogs dosfstools f2fs-tools btrfs-progs efibootmgr -y
+RUN apt install util-linux bash busybox e2fsprogs exfatprogs dosfstools f2fs-tools btrfs-progs efibootmgr -y
 
 # X11
-RUN apt install xserver-xorg-video-all xserver-xorg-core xserver-xorg-input-all xserver-xorg-video-intel xserver-xorg-input-wacom xinit -y
+RUN apt install xserver-xorg-video-all xserver-xorg-core xserver-xorg-input-all xserver-xorg-video-intel xinit -y
 
 # Supposedly we want to install a DE, but Xfce seems to tax us a lot of resources
 # So we decided to use JWM, with some extra tools
