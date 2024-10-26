@@ -25,3 +25,4 @@ RUN rm /*.cfg
 
 RUN /setup.sh
 RUN rm /setup.sh
+RUN rm /pkglist.cfg /rmlist.cfg
