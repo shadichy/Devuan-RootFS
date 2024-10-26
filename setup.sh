@@ -44,3 +44,5 @@ update-rc.d eudev defaults
 
 rm -rf /usr/include/*
 rm -rf /usr/lib/x86_64-linux-gnu/cmake
+
+exit 0

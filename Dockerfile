@@ -2,6 +2,7 @@ FROM devuan/migrated:excalibur-slim
 
 COPY template /
 COPY packages /
+COPY setup.sh /
 
 RUN apt update && apt upgrade -y
 
@@ -22,5 +23,5 @@ RUN grep -Ev '^#' /rmlist.cfg | xargs dpkg --remove --force-depends --force-remo
 
 RUN rm /*.cfg
 
-RUN ./setup.sh
+RUN /setup.sh
 RUN rm /setup.sh
