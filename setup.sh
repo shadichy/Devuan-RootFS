@@ -35,6 +35,7 @@ done
 
 rm -rf /lib/{firmware,modules}
 ln -s /system/lib/modules /vendor/firmware /lib/
+ln -s /system/fonts /usr/share/fonts/android
 
 busybox --install -s /bin
 
