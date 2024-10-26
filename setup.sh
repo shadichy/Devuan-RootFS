@@ -26,7 +26,7 @@ sed -i 's@1:2345:respawn:/sbin/getty@1:2345:respawn:/sbin/getty -n -l /usr/sbin/
 sed -i -r 's|^(root:.*:)/bin/d?a?sh$|\1/bin/bash|g' etc/passwd
 
 # shellcheck disable=SC2016
-echo '[ -z "$DISPLAY" ] && { startx /usr/bin/jwm; poweroff; }' > root/.bash_profile
+echo 'udevadm trigger && [ -z "$DISPLAY" ] && { startx /usr/bin/jwm; poweroff; }' > root/.bash_profile
 chmod +x  root/.bash_profile
 
 for d in libselinux.so.1 libc.so.6 ld-linux-x86-64.so.2; do
