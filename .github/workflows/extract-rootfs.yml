@@ -64,6 +64,9 @@ jobs:
           tar -czvf initrd_lib.tar.gz initrd_lib
           # Change ownership of install/ to 0:0
           sudo chown -R 0:0 install
+          # Change chmod of dbus-daemon-launch-helper to 4754 with ownership 0:101
+          sudo chmod 4754 install/usr/lib/dbus-1.0/dbus-daemon-launch-helper
+          sudo chown 0:101 install/usr/lib/dbus-1.0/dbus-daemon-launch-helper
           # Create install.sfs
           sudo mksquashfs install install.sfs -noappend -comp zstd
           sudo chmod 755 install.sfs
