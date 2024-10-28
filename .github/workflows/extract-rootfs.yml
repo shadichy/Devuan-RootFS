@@ -41,8 +41,6 @@ jobs:
           mv install/grub-rescue.iso .
           # Remove .dockerenv
           rm -rf install/.dockerenv
-          # Create install.sfs
-          mksquashfs install install.sfs -noappend -comp zstd
           # Copy boot_hybrid.img for Legacy BIOS
           cp install/usr/lib/grub/i386-pc/boot_hybrid.img .
           # Create initrd_lib.tar.gz
@@ -58,14 +56,18 @@ jobs:
           cp install/usr/lib/*/libntfs-3g.so.* initrd_lib/lib
           cp install/usr/lib/*/ld-linux-x86-64.so.* initrd_lib/lib
           cp install/usr/bin/ld.so initrd_lib/bin
-          ## Get Docker busybox too
+          # Get Docker busybox too
           wget "https://github.com/docker-library/busybox/raw/refs/heads/dist-amd64/latest/glibc/amd64/rootfs.tar.gz" -O rootfs_busybox.tar.gz
           mkdir docker_busybox && tar -xzf rootfs_busybox.tar.gz -C docker_busybox
           cp docker_busybox/bin/busybox initrd_lib/bin/busybox.docker
-          ## Wrap initrd_lib up
+          # Wrap initrd_lib up
           tar -czvf initrd_lib.tar.gz initrd_lib
-          ## Clean up
-          rm -rf docker_busybox rootfs_busybox.tar.gz install initrd_lib
+          # Change ownership of install/ to 0:0
+          sudo chown -R 0:0 install
+          # Create install.sfs
+          mksquashfs install install.sfs -noappend -comp zstd
+          # Clean up
+          sudo rm -rf docker_busybox rootfs_busybox.tar.gz install initrd_lib
           docker rm devuan
 
       - name: Set Vars
