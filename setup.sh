@@ -30,11 +30,8 @@ cat <<'EOF' >/root/.bash_profile
 #!/bin/bash
 # reload input devices
 udevadm trigger
-# reload font cache
-fc-cache -fv
 if [ -z "$DISPLAY" ] && ! pidof X; then
   startx /usr/bin/jwm
-  poweroff
 fi
 EOF
 chmod +x /root/.bash_profile
