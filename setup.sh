@@ -15,7 +15,7 @@ for d in \
   ln -s android/$d /
 done
 
-echo 'blissos.org' > /etc/hostname
+echo 'blisslabs' > /etc/hostname
 
 cat <<EOF > /usr/sbin/autologin
 #!/bin/sh
@@ -44,6 +44,7 @@ for d in libselinux.so.1 libc.so.6 ld-linux-x86-64.so.2; do
   ln -s x86_64-linux-gnu/$d /lib/
 done
 
+find /usr/{s,}bin -type c -exec rm -f {} +
 rm -rf /lib/{firmware,modules}
 ln -s /system/lib/modules /vendor/firmware /lib/
 
