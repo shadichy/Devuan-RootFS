@@ -74,6 +74,13 @@ rm -rf \
   /var/lib/apt \
   /var/lib/dpkg
 
+find /etc/rc*.d/ -type c | while read -r svc; do
+  rsvc=$(echo "$svc" | sed -r 's|.*[SK][0-9]{2}||g')
+  [ -f /etc/init.d/"$rsvc" ] || continue
+  rm "$svc"
+  ln -s ../init.d/"$rsvc" "$svc"
+done
+
 find usr/lib/x86_64-linux-gnu -iname "*.cmake" -exec rm -f {} +
 
 exit 0
