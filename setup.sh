@@ -35,6 +35,9 @@ done
 
 rm -rf /lib/{firmware,modules}
 ln -s /system/lib/modules /vendor/firmware /lib/
+
+# Symlink fonts from Android
+mkdir -p /usr/share/fonts
 ln -s /system/fonts /usr/share/fonts/android
 
 busybox --install -s /bin
