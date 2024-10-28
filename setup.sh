@@ -46,4 +46,7 @@ update-rc.d eudev defaults
 rm -rf /usr/include/*
 rm -rf /usr/lib/x86_64-linux-gnu/cmake
 
+# Remove /usr/sbin/policy-rc.d on Docker container
+rm /usr/sbin/policy-rc.d
+
 exit 0
