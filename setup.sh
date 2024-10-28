@@ -44,7 +44,6 @@ for d in libselinux.so.1 libc.so.6 ld-linux-x86-64.so.2; do
   ln -s x86_64-linux-gnu/$d /lib/
 done
 
-find /usr/{s,}bin -type c -exec rm -f {} +
 rm -rf /lib/{firmware,modules}
 ln -s /system/lib/modules /vendor/firmware /lib/
 
@@ -74,13 +73,6 @@ rm -rf \
   /var/cache/* \
   /var/lib/apt \
   /var/lib/dpkg
-
-find /etc/rc*.d/ -type c | while read -r svc; do
-  rsvc=$(echo "$svc" | sed -r 's|.*[SK][0-9]{2}||g')
-  [ -f /etc/init.d/"$rsvc" ] || continue
-  rm "$svc"
-  ln -s ../init.d/"$rsvc" "$svc"
-done
 
 find usr/lib/x86_64-linux-gnu -iname "*.cmake" -exec rm -f {} +
 
