@@ -26,9 +26,20 @@ sed -i 's@1:2345:respawn:/sbin/getty@1:2345:respawn:/sbin/getty -n -l /usr/sbin/
 sed -i -r 's|^(root:.*:)/bin/d?a?sh$|\1/bin/bash|g' /etc/passwd
 
 # shellcheck disable=SC2016
-echo 'udevadm trigger && [ -z "$DISPLAY" ] && { startx /usr/bin/jwm; poweroff; }' > /root/.bash_profile
-chmod +x  /root/.bash_profile
+cat <<'EOF' >/root/.bash_profile
+#!/bin/bash
+# reload input devices
+udevadm trigger
+# reload font cache
+fc-cache -fv
+if [ -z "$DISPLAY" ] && ! pidof X; then
+  startx /usr/bin/jwm
+  poweroff
+fi
+EOF
+chmod +x /root/.bash_profile
 
+# Symlinks for chroot
 for d in libselinux.so.1 libc.so.6 ld-linux-x86-64.so.2; do
   ln -s x86_64-linux-gnu/$d /lib/
 done
@@ -42,14 +53,27 @@ ln -s /system/fonts /usr/share/fonts/android
 
 busybox --install -s /bin
 
+# Enable dbus and udev services
 update-rc.d dbus defaults
 update-rc.d udev defaults
 update-rc.d eudev defaults
 
-rm -rf /usr/include/*
-rm -rf /usr/lib/x86_64-linux-gnu/cmake
-
 # Remove /usr/sbin/policy-rc.d on Docker container
-rm /usr/sbin/policy-rc.d
+rm -rf \
+  /etc/apt \
+  /usr/include \
+  /usr/lib/cmake \
+  /usr/sbin/policy-rc.d \
+  /usr/share/doc \
+  /usr/share/doc-base \
+  /usr/share/gtk-doc \
+  /usr/share/info \
+  /usr/share/man \
+  /usr/share/man-db \
+  /var/cache/* \
+  /var/lib/apt \
+  /var/lib/dpkg
+
+find usr/lib/x86_64-linux-gnu -iname "*.cmake" -exec rm -f {} +
 
 exit 0
