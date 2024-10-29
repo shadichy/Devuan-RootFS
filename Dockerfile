@@ -9,6 +9,9 @@ RUN apt update && apt upgrade -y
 # Install package list
 RUN grep -Ev '^#' /pkglist.cfg | xargs apt install -y --no-install-recommends --no-install-suggests
 
+# Replace stock system.jwmrc with ours
+RUN mv /system.jwmrc /etc/jwm/system.jwmrc
+
 # Install programs to generate grub-rescue.iso
 RUN apt install xorriso mtools -y
 
