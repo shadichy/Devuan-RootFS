@@ -1,0 +1,2 @@
+You've been exited from the graphical environment. Type "startx jwm" to go back.
+Or continue if this is what you want.

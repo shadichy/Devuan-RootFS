@@ -33,6 +33,9 @@ udevadm trigger
 if [ -z "$DISPLAY" ] && ! pidof X; then
   startx /usr/bin/jwm
 fi
+# print message when no jwm
+clear
+cat /etc/bliss/message.txt
 EOF
 chmod +x /root/.bash_profile
 
