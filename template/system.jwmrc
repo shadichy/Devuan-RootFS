@@ -4,13 +4,13 @@
     <!-- The root menu. -->
     <RootMenu onroot="1" height="22">
         <Program icon="/etc/bliss/blissos_logo.svg" label="Install BlissOS">calamares</Program>
-        <Program icon="/usr/share/icons/HighContrast/scalable/mimetypes/x-office-document.svg" label="README">l3afpad /etc/bliss/readme.txt</Program>
+        <Program icon="x-office-document.svg" label="README">l3afpad /etc/bliss/readme.txt</Program>
 	<Separator/>
         <Program icon="doublecmd.svg" label="Double Commander">doublecmd</Program>
         <Program icon="gparted.svg" label="GParted">gparted</Program>
         <Program icon="htop.png" label="Htop">qterminal -e htop</Program>
         <Program icon="l3afpad.png" label="L3afpad">l3afpad</Program>
-        <Program icon="/usr/share/icons/HighContrast/scalable/apps/utilities-terminal.svg" label="QTerminal">qterminal</Program>
+        <Program icon="utilities-terminal.svg" label="QTerminal">qterminal</Program>
         <Separator/>
         <Restart label="Reload JWM" icon="reload"/>
         <Exit label="Exit JWM" confirm="true" icon="exit"/>        
