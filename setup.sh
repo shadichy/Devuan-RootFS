@@ -9,47 +9,16 @@ for d in \
   mkdir -p $d
 done
 
-for d in \
-  system \
-  vendor; do
-  ln -s android/$d /
-done
-
-echo 'blisslabs' > /etc/hostname
-
-cat <<EOF > /usr/sbin/autologin
-#!/bin/sh
-exec login -f root
-EOF
-chmod +x  usr/sbin/autologin
+# setup autologin
 sed -i 's@1:2345:respawn:/sbin/getty@1:2345:respawn:/sbin/getty -n -l /usr/sbin/autologin@g' /etc/inittab
+# change default shell to bash
 sed -i -r 's|^(root:.*:)/bin/d?a?sh$|\1/bin/bash|g' /etc/passwd
 
-# shellcheck disable=SC2016
-cat <<'EOF' >/root/.bash_profile
-#!/bin/bash
-# reload input devices
-udevadm trigger
-if [ -z "$DISPLAY" ] && ! pidof X; then
-  startx /usr/bin/jwm
-fi
-# print message when no jwm
-clear
-cat /etc/bliss/message.txt
-EOF
-chmod +x /root/.bash_profile
-
-# Symlinks for chroot
-for d in libselinux.so.1 libc.so.6 ld-linux-x86-64.so.2; do
-  ln -s x86_64-linux-gnu/$d /lib/
-done
-
+# Symlink kernel modules and firmwares
+# manually because some of the packages
+# may intentionally create these folders
 rm -rf /lib/{firmware,modules}
 ln -s /system/lib/modules /vendor/firmware /lib/
-
-# Symlink fonts from Android
-mkdir -p /usr/share/fonts
-ln -s /system/fonts /usr/share/fonts/android
 
 busybox --install -s /bin
 
