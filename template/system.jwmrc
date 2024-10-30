@@ -6,10 +6,11 @@
         <Program icon="/etc/bliss/blissos_logo.svg" label="Install BlissOS">calamares</Program>
         <Program icon="x-office-document-symbolic.svg" label="README">l3afpad /etc/bliss/readme.txt</Program>
 	<Separator/>
-        <Program icon="doublecmd.svg" label="Double Commander">doublecmd</Program>
         <Program icon="gparted.svg" label="GParted">gparted</Program>
+        <Program icon="gpicview.png" label="GPicView">gpicview</Program>
         <Program icon="htop.png" label="Htop">qterminal -e htop</Program>
         <Program icon="l3afpad.png" label="L3afpad">l3afpad</Program>
+        <Program icon="system-file-manager-symbolic.svg" label="PCManFM">pcmanfm</Program>
         <Program icon="qterminal.png" label="QTerminal">qterminal</Program>
         <Separator/>
         <Restart label="Reload JWM" icon="reload"/>
@@ -133,6 +134,7 @@
     <IconPath>/usr/share/icons/hicolor/32x32/status</IconPath>
     <IconPath>/usr/share/icons/hicolor/512x512/apps</IconPath>
     <IconPath>/usr/share/icons/hicolor/512x512/mimetypes</IconPath>
+    <IconPath>/usr/share/icons/hicolor/48x48/apps</IconPath>
     <IconPath>/usr/share/icons/hicolor/64x64/apps</IconPath>
     <IconPath>/usr/share/icons/hicolor/scalable/actions</IconPath>
     <IconPath>/usr/share/icons/hicolor/scalable/apps</IconPath>
@@ -143,6 +145,7 @@
     <IconPath>/usr/share/icons/hicolor/scalable/places</IconPath>
     <IconPath>/usr/share/icons/hicolor/scalable/status</IconPath>
     <IconPath>/usr/share/icons/Adwaita/symbolic/mimetypes</IconPath>
+    <IconPath>/usr/share/icons/Adwaita/symbolic/legacy</IconPath>
     <IconPath>/usr/share/icons</IconPath>
     <IconPath>/usr/share/pixmaps</IconPath>
 
