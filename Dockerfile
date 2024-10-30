@@ -6,17 +6,14 @@ COPY setup.sh /
 
 RUN apt update && apt upgrade -y
 
+# Install additional apt utils 
+RUN apt install -y apt-transport-https ca-certificates
+
 # Install package list
 RUN grep -Ev '^#' /pkglist.cfg | xargs apt install -y --no-install-recommends --no-install-suggests
 
-# Install programs to generate grub-rescue.iso
-RUN apt install xorriso mtools -y
-
 # Generate a grub-rescue iso so we can use it as the base for the iso
 RUN grub-mkrescue -o /grub-rescue.iso
-
-# Remove xorriso once done
-RUN apt remove xorriso mtools -y
 
 # Try to strip down the image further
 RUN grep -Ev '^#' /rmlist.cfg | xargs dpkg --remove --force-depends --force-remove-essential || :
