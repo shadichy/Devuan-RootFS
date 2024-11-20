@@ -234,6 +234,7 @@
     <Mouse context="minimize" button="-3">shade</Mouse>
 
     <StartupCommand>
+        pcmanfm --desktop
         sleep 3; calamares
     </StartupCommand>
 
