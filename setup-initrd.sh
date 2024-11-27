@@ -15,7 +15,7 @@ cp -t /iso/out/lib/ \
   /usr/lib/*/librt.so.* \
   /usr/lib/*/ld-linux-x86-64.so.*
 
-cp /usr/bin/ld.so initrd_lib/bin
+cp /usr/bin/ld.so /iso/out/bin/
 
 # NTFS3 support (will be deprecated)
 cp /usr/sbin/mount.ntfs-3g /iso/out/bin/

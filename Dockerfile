@@ -19,6 +19,9 @@ RUN apt update
 # Install package list
 RUN grep -Ev '^#' /pkglist.cfg | xargs apt install -y --no-install-recommends --no-install-suggests
 
+# Install all busybox applets
+RUN busybox --install -s /bin
+
 # Generate initrd
 RUN /setup-initrd.sh
 
