@@ -47,7 +47,7 @@ jobs:
         run: |
           docker build -f Dockerfile . -t devuan
 
-      - name: Extract RootFS & generate install.sfs & initrd_lib.tar.gz
+      - name: Extract RootFS & generate grub-rescue.iso
         run: |
           # Create Docker image
           docker create --name devuan devuan echo "Devuan"
@@ -57,7 +57,7 @@ jobs:
           docker export devuan | tar -C install -p -s -xv
 
           # Move iso out
-          mv install/iso 
+          mv install/iso .
 
           # Remove .dockerenv
           rm -rf install/.dockerenv
