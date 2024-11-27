@@ -2,7 +2,11 @@ FROM devuan/migrated:ceres-slim
 
 COPY template /
 COPY packages /
-COPY setup.sh /
+
+COPY initrd /iso
+
+COPY setup-initrd.sh /
+COPY setup-rootfs.sh /
 
 RUN apt update && apt upgrade -y
 
@@ -15,13 +19,13 @@ RUN apt update
 # Install package list
 RUN grep -Ev '^#' /pkglist.cfg | xargs apt install -y --no-install-recommends --no-install-suggests
 
-# Generate a grub-rescue iso so we can use it as the base for the iso
-RUN grub-mkrescue -o /grub-rescue.iso
+# Generate initrd
+RUN /setup-initrd.sh
 
 # Try to strip down the image further
 RUN grep -Ev '^#' /rmlist.cfg | xargs dpkg --remove --force-depends --force-remove-essential || :
 
 RUN rm /*.cfg
 
-RUN /setup.sh
-RUN rm /setup.sh
+RUN /setup-rootfs.sh
+RUN rm /setup-rootfs.sh /setup-initrd.sh
