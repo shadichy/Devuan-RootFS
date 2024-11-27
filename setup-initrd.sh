@@ -1,7 +1,7 @@
 #!/bin/bash
 
 mkdir /docker_busybox
-wget "https://github.com/docker-library/busybox/raw/refs/heads/dist-amd64/latest/glibc/amd64/rootfs.tar.gz" -O - | tar -C /docker_busybox -xaf -
+wget "https://github.com/docker-library/busybox/raw/refs/heads/dist-amd64/latest/glibc/amd64/rootfs.tar.gz" -O - | tar -C /docker_busybox -xzf -
 mv /docker_busybox/bin/busybox /iso/out/bin/busybox
 chmod +x /iso/out/bin/busybox
 rm -rf /docker_busybox
