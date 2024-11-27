@@ -22,5 +22,7 @@ cp /usr/sbin/mount.ntfs-3g /iso/out/bin/
 cp /usr/lib/*/libntfs-3g.so.* /iso/out/lib/
 
 cd /iso/out
-find . | sed 's|^\.\/||g' | tail -n +2 | cpio -o -H newc > /iso/initrd.img 
+find . | sed 's|^\.\/||g' | tail -n +2 | cpio -o -H newc | tee /iso/initrd.img
 cd /
+
+rm -rf /iso/out

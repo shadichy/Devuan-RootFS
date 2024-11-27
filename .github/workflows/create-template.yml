@@ -35,7 +35,7 @@ jobs:
           make DESTDIR=out
 
           # Clean up
-          sudo rm -rf iso/{out,.gitignore,Makefile,README.md}
+          sudo rm -rf src .gitignore Makefile README.md
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
