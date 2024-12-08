@@ -233,4 +233,9 @@
     <Mouse context="minimize" button="2">move</Mouse>
     <Mouse context="minimize" button="-3">shade</Mouse>
 
+    <StartupCommand>
+        pcmanfm --desktop &
+        sleep 3; calamares
+    </StartupCommand>
+
 </JWM>

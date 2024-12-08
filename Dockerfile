@@ -1,4 +1,4 @@
-FROM devuan/migrated:excalibur-slim
+FROM devuan/migrated:ceres-slim
 
 COPY template /
 COPY packages /
