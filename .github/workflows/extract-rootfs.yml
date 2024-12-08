@@ -4,11 +4,14 @@ on:
   push:
     branches:
       - main
+      - ceres
     tags:
       - v*
   pull_request:
     branches:
       - main
+      - ceres
+  workflow_dispatch:
 
 jobs:
   build:
@@ -34,42 +37,58 @@ jobs:
         run: |
           # Create Docker image
           docker create --name devuan devuan echo "Devuan"
+
           # Export it to install
           mkdir install
           docker export devuan | tar -C install -p -s -xv
+
           # Move grub-rescue.iso out
           mv install/grub-rescue.iso .
+
           # Remove .dockerenv
           rm -rf install/.dockerenv
+
           # Copy boot_hybrid.img for Legacy BIOS
           cp install/usr/lib/grub/i386-pc/boot_hybrid.img .
+
           # Create initrd_lib.tar.gz
-          mkdir -p initrd_lib/bin initrd_lib/lib initrd_lib/sbin
-          cp install/usr/bin/busybox initrd_lib/bin/busybox
-          cp install/usr/sbin/mount.ntfs-3g initrd_lib/sbin/mount.ntfs-3g
-          cp install/usr/lib/*/libc.so.* initrd_lib/lib
-          cp install/usr/lib/*/libdl.so.* initrd_lib/lib
-          cp install/usr/lib/*/libm.so.* initrd_lib/lib
-          cp install/usr/lib/*/libpthread.so.* initrd_lib/lib
-          cp install/usr/lib/*/libresolv.so.* initrd_lib/lib
-          cp install/usr/lib/*/librt.so.* initrd_lib/lib
-          cp install/usr/lib/*/libntfs-3g.so.* initrd_lib/lib
-          cp install/usr/lib/*/ld-linux-x86-64.so.* initrd_lib/lib
-          cp install/usr/bin/ld.so initrd_lib/bin
+          mkdir -p initrd_lib/usr/bin
+          mkdir -p initrd_lib/usr/lib
+          mkdir -p initrd_lib/usr/lib64
+          ln -s usr/bin initrd_lib
+          ln -s usr/lib initrd_lib
+          ln -s usr/lib64 initrd_lib
+          cp -t initrd_lib/bin install/usr/sbin/mount.ntfs-3g
+          cp -t initrd_lib/bin install/usr/bin/ld.so
+          cp -t initrd_lib/lib install/usr/lib/*/libc.so.*
+          cp -t initrd_lib/lib install/usr/lib/*/libdl.so.*
+          cp -t initrd_lib/lib install/usr/lib/*/libm.so.*
+          cp -t initrd_lib/lib install/usr/lib/*/libpthread.so.*
+          cp -t initrd_lib/lib install/usr/lib/*/libresolv.so.*
+          cp -t initrd_lib/lib install/usr/lib/*/librt.so.*
+          cp -t initrd_lib/lib install/usr/lib/*/libntfs-3g.so.*
+          cp -t initrd_lib/lib install/usr/lib/*/ld-linux-x86-64.so.*
+          cp -t initrd_lib/lib64 install/usr/lib64/ld-linux-x86-64.so.*
+
           # Get Docker busybox too
-          wget "https://github.com/docker-library/busybox/raw/refs/heads/dist-amd64/latest/glibc/amd64/rootfs.tar.gz" -O rootfs_busybox.tar.gz
-          mkdir docker_busybox && tar -xzf rootfs_busybox.tar.gz -C docker_busybox
-          cp docker_busybox/bin/busybox initrd_lib/bin/busybox.docker
+          mkdir -p docker_busybox
+          wget "https://github.com/docker-library/busybox/raw/refs/heads/dist-amd64/latest/glibc/amd64/rootfs.tar.gz" -O - | tar -C docker_busybox -xzf -
+          cp docker_busybox/bin/busybox initrd_lib/bin
+
           # Wrap initrd_lib up
           tar -czvf initrd_lib.tar.gz initrd_lib
+
           # Change ownership of install/ to 0:0
           sudo chown -R 0:0 install
+
           # Change chmod of dbus-daemon-launch-helper to 4754 with ownership 0:101
           sudo chown 0:101 install/usr/lib/dbus-1.0/dbus-daemon-launch-helper
           sudo chmod 4754 install/usr/lib/dbus-1.0/dbus-daemon-launch-helper
+
           # Create install.sfs
           sudo mksquashfs install install.sfs -noappend -comp zstd
           sudo chmod 755 install.sfs
+
           # Clean up
           sudo rm -rf docker_busybox rootfs_busybox.tar.gz install initrd_lib
           docker rm devuan
@@ -114,7 +133,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           path: out
-          pattern: 'install.sfs,initrd_lib.tar.gz,grub-rescue.iso,boot_hybrid.img'
+          pattern: "install.sfs,initrd_lib.tar.gz,grub-rescue.iso,boot_hybrid.img"
           merge-multiple: true
 
       - name: List Files

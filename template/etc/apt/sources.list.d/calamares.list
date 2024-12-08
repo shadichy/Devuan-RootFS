@@ -1,1 +1,1 @@
-deb [trusted=yes] https://github.com/shadichy/bliss-build-deb-repo/raw/refs/heads/main excalibur main
+deb [trusted=yes] https://github.com/shadichy/bliss-build-deb-repo/raw/refs/heads/main ceres main
