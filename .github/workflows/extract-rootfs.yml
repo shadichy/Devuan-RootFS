@@ -139,9 +139,9 @@ jobs:
       - name: List Files
         run: ls -R ${{ steps.download-rootfs.outputs.download-path }}
 
-      - uses: "marvinpinto/action-automatic-releases@latest"
+      - uses: "softprops/action-gh-release@latest"
         with:
-          repo_token: "${{ secrets.RELEASE_TOKEN }}"
+          token: "${{ secrets.RELEASE_TOKEN }}"
           prerelease: false
           files: |
             ${{ steps.download-rootfs.outputs.download-path }}/*
