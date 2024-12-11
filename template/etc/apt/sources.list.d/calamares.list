@@ -1,1 +1,1 @@
-deb [trusted=yes] https://github.com/shadichy/bliss-build-deb-repo/raw/refs/heads/main unstable main
+deb [trusted=yes] https://shadichy.github.io/bliss-build-deb-repo unstable main
