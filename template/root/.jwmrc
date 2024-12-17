@@ -8,6 +8,7 @@
 	<Separator/>
         <Program icon="gparted.svg" label="GParted">gparted</Program>
         <Program icon="gpicview.png" label="GPicView">gpicview</Program>
+        <Program icon="gsmartcontrol.png" label="GSmartControl">gsmartcontrol</Program>
         <Program icon="htop.png" label="Htop">qterminal -e htop</Program>
         <Program icon="l3afpad.png" label="L3afpad">l3afpad</Program>
         <Program icon="system-file-manager-symbolic.svg" label="PCManFM">pcmanfm</Program>
