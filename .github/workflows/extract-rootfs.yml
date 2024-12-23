@@ -51,28 +51,8 @@ jobs:
           # Copy boot_hybrid.img for Legacy BIOS
           cp install/usr/lib/grub/i386-pc/boot_hybrid.img .
 
-          # Create initrd_lib.tar.gz
-          mkdir -p initrd_lib/usr/bin
-          mkdir -p initrd_lib/usr/lib
-          mkdir -p initrd_lib/usr/lib64
-          ln -s usr/bin initrd_lib
-          ln -s usr/lib initrd_lib
-          ln -s usr/lib64 initrd_lib
-          cp -t initrd_lib/bin install/usr/bin/mount.ntfs-3g
-          cp -t initrd_lib/bin install/usr/bin/ld.so
-          cp -t initrd_lib/bin install/usr/bin/busybox
-          cp -t initrd_lib/lib install/usr/lib/*/libc.so.*
-          cp -t initrd_lib/lib install/usr/lib/*/libdl.so.*
-          cp -t initrd_lib/lib install/usr/lib/*/libm.so.*
-          cp -t initrd_lib/lib install/usr/lib/*/libpthread.so.*
-          cp -t initrd_lib/lib install/usr/lib/*/libresolv.so.*
-          cp -t initrd_lib/lib install/usr/lib/*/librt.so.*
-          cp -t initrd_lib/lib install/usr/lib/*/libntfs-3g.so.*
-          cp -t initrd_lib/lib install/usr/lib/*/ld-linux-x86-64.so.*
-          cp -t initrd_lib/lib64 install/usr/lib64/ld-linux-x86-64.so.*
-
-          # Wrap initrd_lib up
-          tar -czvf initrd_lib.tar.gz initrd_lib
+          # Copy initrd_lib.tar.gz
+          cp install/initrd_lib.tar.gz .
 
           # Change ownership of install/ to 0:0
           sudo chown -R 0:0 install
