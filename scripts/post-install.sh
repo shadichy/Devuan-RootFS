@@ -22,8 +22,8 @@ cp -t /initrd/lib $(find_dep /initrd/bin/busybox)
 
 # Linker
 cp -t /initrd/bin /bin/ld.so
-cp -t /initrd/lib install/usr/lib/*/ld-linux-x86-64.so.*
-cp -t /initrd/lib64 install/usr/lib64/ld-linux-x86-64.so.*
+cp -t /initrd/lib /usr/lib/*/ld-linux-x86-64.so.*
+cp -t /initrd/lib64 /usr/lib64/ld-linux-x86-64.so.*
 
 # Wrap initrd up
 tar -czvf /initrd_lib.tar.gz /initrd
