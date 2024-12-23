@@ -7,11 +7,21 @@ rm -rf /iso
 # Generate initrd template
 mkdir -p /initrd/usr/{bin,lib,lib64}
 ln -st /initrd usr/{bin,lib,lib64}
-for b in mount.ntfs-3g ld.so busybox; do
+
+# Copy binaries and libraries
+find_dep() { ldd "$1" | awk '{print $3}' | xargs; }
+for b in mount.ntfs-3g; do
   b=$(which $b)
   cp -t /initrd/bin $b
-  cp -t /initrd/lib $(ldd "$b" | awk '{print $3}' | xargs)
+  cp -t /initrd/lib $(find_dep "$b")
 done
+
+# Busybox is explicitly handled
+cp -t /initrd/bin /usr/share/bliss/busybox
+cp -t /initrd/lib $(find_dep /initrd/bin/busybox)
+
+# Linker
+cp -t /initrd/bin /bin/ld.so
 cp -t /initrd/lib install/usr/lib/*/ld-linux-x86-64.so.*
 cp -t /initrd/lib64 install/usr/lib64/ld-linux-x86-64.so.*
 
