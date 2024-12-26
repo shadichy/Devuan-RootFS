@@ -5,7 +5,7 @@ Name=Install BlissOS
 GenericName=BlissOS Installer
 Keywords=calamares;system;installer;
 TryExec=calamares
-Exec=sh -c "pkexec calamares"
+Exec=/usr/bin/env QT_QPA_PLATFORMTHEME=gtk3 /usr/bin/calamares
 Icon=/etc/bliss/blissos_logo.png
 Terminal=false
 StartupNotify=true
