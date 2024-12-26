@@ -6,7 +6,7 @@ rm -rf /iso
 
 # Generate initrd template
 mkdir -p /initrd_lib/usr/{bin,lib,lib64}
-ln -st /initrd usr/{bin,lib,lib64}
+ln -st /initrd_lib usr/{bin,lib,lib64}
 
 # Copy binaries and libraries
 find_dep() { ldd "$1" | awk '{print $3}' | xargs; }
