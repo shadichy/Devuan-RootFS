@@ -26,6 +26,6 @@ cp -t /initrd_lib/lib /usr/lib/*/ld-linux-x86-64.so.*
 cp -t /initrd_lib/lib64 /usr/lib64/ld-linux-x86-64.so.*
 
 # Wrap initrd up
-tar -czvf /initrd_lib.tar.gz /initrd
+tar -czvf /initrd_lib.tar.gz /initrd_lib
 
 exit 0
