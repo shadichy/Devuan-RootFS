@@ -22,6 +22,9 @@ ln -s /system/lib/modules /vendor/firmware /lib/
 
 busybox --install -s /bin
 
+# Additional setup
+ln -s pcmanfm-qt /usr/bin/pcmanfm
+
 # Enable dbus and udev services
 update-rc.d dbus defaults
 update-rc.d udev defaults
