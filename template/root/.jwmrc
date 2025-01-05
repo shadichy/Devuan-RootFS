@@ -17,7 +17,7 @@
 		<Restart label="Reload JWM" icon="reload"/>
 		<Exit label="Exit JWM" confirm="true" icon="exit"/>        
 	<Program label="Reboot">/etc/bliss/reboot.sh</Program>
-	<Program label="Power Off">/usr/libexec/jwm/jwm-poweroff.sh</Program>
+	<Program label="Power Off">/etc/bliss/shutdown.sh</Program>
 	</RootMenu>
 
 	<!-- Tray at the bottom. -->
