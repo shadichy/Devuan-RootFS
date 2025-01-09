@@ -23,7 +23,7 @@
 	<!-- Tray at the bottom. -->
 	<Tray x="0" y="-1" height="30" autohide="off" delay="1000">
 
-		<TrayButton icon="/etc/bliss/blissos_logo.svg" label="">root:1</TrayButton>
+		<TrayButton icon="/etc/bliss/blissos_logo.svg" label="Menu">root:1</TrayButton>
 		<Spacer width="4"/>
 
 		<Pager labeled="true"/>
