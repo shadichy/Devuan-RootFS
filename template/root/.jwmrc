@@ -3,7 +3,7 @@
 
 	<!-- The root menu. -->
 	<RootMenu onroot="1" height="22">
-		<Program icon="/etc/bliss/blissos_logo.svg" label="Install BlissOS">calamares</Program>
+		<Program icon="/etc/bliss/blissos_logo.svg" label="Install BlissOS">bash -c /usr/bin/aaropa-calamares</Program>
 		<Program icon="x-office-document-symbolic.svg" label="README">l3afpad /etc/bliss/readme.txt</Program>
 	<Separator/>
 		<Program icon="gparted.svg" label="GParted">gparted</Program>
@@ -238,7 +238,7 @@
 
 	<StartupCommand>
 		pcmanfm --desktop &
-		sleep 3; calamares
+		sleep 3; bash -c /usr/bin/aaropa-calamares
 	</StartupCommand>
 
 </JWM>
